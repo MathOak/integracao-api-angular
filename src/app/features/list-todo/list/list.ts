@@ -7,16 +7,13 @@ import {
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService, Todo } from '../../../core/services/api.service';
+import { Card } from '../card/card';
 
 @Component({
   selector: 'app-list',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Card],
   templateUrl: './list.html',
   styleUrl: './list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -141,9 +138,7 @@ export class List implements OnInit {
         next: (produtoAtualizado) => {
           this.produtos.update((lista) =>
             lista.map((item) =>
-              item.id === formValue.id
-                ? { ...produtoAtualizado, id: formValue.id }
-                : item,
+              item.id === formValue.id ? { ...produtoAtualizado, id: formValue.id } : item,
             ),
           );
           this.feedback.set('Produto atualizado com sucesso.');

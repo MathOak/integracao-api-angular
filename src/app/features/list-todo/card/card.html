@@ -1,1 +1,13 @@
-<p>card works!</p>
+<article class="card">
+  <p class="id">#{{ todo().id }}</p>
+  <h2>{{ todo().title }}</h2>
+  <p>Status: {{ todo().completed ? 'Concluido' : 'Pendente' }}</p>
+  <div class="card-acoes">
+    <button type="button" class="botao ghost pequeno" (click)="abrirMenu('update')">
+      Atualizar
+    </button>
+    <button type="button" class="botao danger pequeno" (click)="abrirMenu('delete')">
+      Excluir
+    </button>
+  </div>
+</article>

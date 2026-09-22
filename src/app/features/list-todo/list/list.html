@@ -30,27 +30,10 @@
 	} @else {
 		<div class="grade">
 			@for (produto of produtos(); track produto.id) {
-				<article class="card">
-					<p class="id">#{{ produto.id }}</p>
-					  <h2>{{ produto.title }}</h2>
-					  <p>Status: {{ produto.completed ? 'Concluido' : 'Pendente' }}</p>
-					<div class="card-acoes">
-						<button
-							type="button"
-							class="botao ghost pequeno"
-							(click)="abrirMenu('update', produto)"
-						>
-							Atualizar
-						</button>
-						<button
-							type="button"
-							class="botao danger pequeno"
-							(click)="abrirMenu('delete', produto)"
-						>
-							Excluir
-						</button>
-					</div>
-				</article>
+				<app-card
+					[todo]="produto"
+					(acaoSelecionada)="abrirMenu($event.modo, $event.todo)"
+				></app-card>
 			}
 		</div>
 	}
