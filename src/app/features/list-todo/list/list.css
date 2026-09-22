@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap');
+
+:host {
+	--ink: #132026;
+	--teal: #0d9488;
+	--teal-dark: #0f766e;
+	--sand: #f6f1e8;
+	--card: #fffdf8;
+	--line: #d1cdc4;
+	--warn: #b91c1c;
+	--ok: #166534;
+	display: block;
+	min-height: 100dvh;
+	padding: 1.5rem;
+	background:
+		radial-gradient(circle at 15% 20%, #d8f3ef 0%, transparent 40%),
+		radial-gradient(circle at 90% 0%, #fee2e2 0%, transparent 30%),
+		var(--sand);
+	color: var(--ink);
+	font-family: 'Space Grotesk', sans-serif;
+}
+
+.catalogo {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+.topo {
+	display: flex;
+	justify-content: space-between;
+	gap: 1rem;
+	align-items: end;
+}
+
+.etiqueta {
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	font-size: 0.75rem;
+	color: #334155;
+	margin: 0;
+}
+
+h1 {
+	font-family: 'Archivo', sans-serif;
+	margin: 0.2rem 0;
+	font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+}
+
+.descricao {
+	margin: 0;
+	color: #334155;
+}
+
+.acoes-topo {
+	display: flex;
+	gap: 0.75rem;
+}
+
+.botao {
+	border: 0;
+	border-radius: 0.8rem;
+	padding: 0.7rem 1rem;
+	font: inherit;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.botao.principal {
+	background: var(--teal);
+	color: #f8fafc;
+}
+
+.botao.principal:hover {
+	background: var(--teal-dark);
+}
+
+.botao.ghost {
+	background: #ffffff;
+	border: 1px solid var(--line);
+	color: #0f172a;
+}
+
+.botao.pequeno {
+	padding: 0.45rem 0.75rem;
+	font-size: 0.9rem;
+}
+
+.botao.danger {
+	background: var(--warn);
+	color: #fff;
+}
+
+.grade {
+	margin-top: 1.25rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 0.95rem;
+}
+
+.card {
+	background: var(--card);
+	border: 1px solid var(--line);
+	border-radius: 1rem;
+	padding: 1rem;
+	box-shadow: 0 10px 24px -20px #334155;
+	animation: surgir 250ms ease;
+}
+
+.card h2 {
+	font-family: 'Archivo', sans-serif;
+	margin: 0.2rem 0 0.5rem;
+	font-size: 1.05rem;
+}
+
+.card p {
+	margin: 0;
+	color: #334155;
+}
+
+.id {
+	font-size: 0.8rem;
+	color: #475569;
+}
+
+.card-acoes {
+	margin-top: 0.8rem;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.estado {
+	margin-top: 1rem;
+	padding: 0.8rem;
+	border-radius: 0.75rem;
+	background: #ecfeff;
+	color: #155e75;
+}
+
+.estado.erro {
+	background: #fee2e2;
+	color: #991b1b;
+}
+
+.estado.sucesso {
+	background: #dcfce7;
+	color: var(--ok);
+}
+
+.fundo {
+	position: fixed;
+	inset: 0;
+	background: rgb(0 0 0 / 0.35);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 200ms ease;
+}
+
+.fundo.aberto {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.menu {
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: min(430px, 96vw);
+	height: 100dvh;
+	background: #fff;
+	border-left: 1px solid var(--line);
+	padding: 1.2rem;
+	transform: translateX(100%);
+	transition: transform 240ms ease;
+	overflow-y: auto;
+}
+
+.menu.aberto {
+	transform: translateX(0);
+}
+
+.menu-cabecalho {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.menu-cabecalho h2 {
+	margin: 0;
+	font-family: 'Archivo', sans-serif;
+}
+
+.fechar {
+	border: 0;
+	background: #f1f5f9;
+	width: 2rem;
+	height: 2rem;
+	border-radius: 999px;
+	cursor: pointer;
+}
+
+.tabs {
+	margin-top: 1rem;
+	display: flex;
+	gap: 0.5rem;
+}
+
+.tab {
+	flex: 1;
+	border: 1px solid var(--line);
+	background: #fff;
+	border-radius: 0.6rem;
+	padding: 0.5rem;
+	cursor: pointer;
+	font: inherit;
+}
+
+.tab.ativo {
+	border-color: var(--teal);
+	color: var(--teal-dark);
+	font-weight: 700;
+}
+
+.formulario {
+	margin-top: 1rem;
+	display: grid;
+	gap: 0.65rem;
+}
+
+label {
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+input,
+textarea {
+	border: 1px solid var(--line);
+	border-radius: 0.65rem;
+	padding: 0.65rem;
+	font: inherit;
+}
+
+.check {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.45rem;
+	font-weight: 600;
+}
+
+@keyframes surgir {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 760px) {
+	:host {
+		padding: 1rem;
+	}
+
+	.topo {
+		flex-direction: column;
+		align-items: start;
+	}
+
+	.acoes-topo {
+		width: 100%;
+	}
+
+	.acoes-topo .botao {
+		flex: 1;
+	}
+}

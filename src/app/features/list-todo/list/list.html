@@ -1,0 +1,130 @@
+<section class="catalogo">
+	<header class="topo">
+		<div>
+			<p class="etiqueta">JSONPlaceholder</p>
+			<h1>Produtos</h1>
+			<p class="descricao">Tela de GET com operacoes de create, update e delete.</p>
+		</div>
+		<div class="acoes-topo">
+			<button type="button" class="botao ghost" (click)="carregarProdutos()">
+				Atualizar lista
+			</button>
+			<button
+				type="button"
+				class="botao principal"
+				(click)="abrirMenu('create')"
+				[attr.aria-expanded]="menuAberto()"
+				aria-controls="menu-lateral"
+			>
+				Abrir menu CRUD
+			</button>
+		</div>
+	</header>
+
+	@if (erro()) {
+		<p class="estado erro">{{ erro() }}</p>
+	}
+
+	@if (carregando()) {
+		<p class="estado">Carregando produtos...</p>
+	} @else {
+		<div class="grade">
+			@for (produto of produtos(); track produto.id) {
+				<article class="card">
+					<p class="id">#{{ produto.id }}</p>
+					  <h2>{{ produto.title }}</h2>
+					  <p>Status: {{ produto.completed ? 'Concluido' : 'Pendente' }}</p>
+					<div class="card-acoes">
+						<button
+							type="button"
+							class="botao ghost pequeno"
+							(click)="abrirMenu('update', produto)"
+						>
+							Atualizar
+						</button>
+						<button
+							type="button"
+							class="botao danger pequeno"
+							(click)="abrirMenu('delete', produto)"
+						>
+							Excluir
+						</button>
+					</div>
+				</article>
+			}
+		</div>
+	}
+</section>
+
+<div class="fundo" [class.aberto]="menuAberto()" (click)="fecharMenu()"></div>
+
+<aside id="menu-lateral" class="menu" [class.aberto]="menuAberto()" aria-label="Menu CRUD">
+	<div class="menu-cabecalho">
+		<h2>{{ tituloMenu() }}</h2>
+		<button type="button" class="fechar" (click)="fecharMenu()" aria-label="Fechar menu">
+			x
+		</button>
+	</div>
+
+	<nav class="tabs" aria-label="Selecionar operacao">
+		<button type="button" class="tab" [class.ativo]="modoMenu() === 'create'" (click)="abrirMenu('create')">
+			Create
+		</button>
+		<button type="button" class="tab" [class.ativo]="modoMenu() === 'update'" (click)="abrirMenu('update')">
+			Update
+		</button>
+		<button type="button" class="tab" [class.ativo]="modoMenu() === 'delete'" (click)="abrirMenu('delete')">
+			Delete
+		</button>
+	</nav>
+
+	@if (feedback()) {
+		<p class="estado sucesso">{{ feedback() }}</p>
+	}
+
+	@if (modoMenu() === 'create') {
+		<form [formGroup]="createForm" (ngSubmit)="criarProduto()" class="formulario">
+			<label for="create-user">User ID</label>
+			<input id="create-user" type="number" formControlName="userId" />
+
+			<label for="create-title">Titulo</label>
+			<input id="create-title" type="text" formControlName="title" />
+
+			<label class="check">
+				<input id="create-completed" type="checkbox" formControlName="completed" />
+				Concluido
+			</label>
+
+			<button type="submit" class="botao principal">Criar produto</button>
+		</form>
+	}
+
+	@if (modoMenu() === 'update') {
+		<form [formGroup]="updateForm" (ngSubmit)="atualizarProduto()" class="formulario">
+			<label for="update-id">ID do produto</label>
+			<input id="update-id" type="number" formControlName="id" />
+
+			<label for="update-user">User ID</label>
+			<input id="update-user" type="number" formControlName="userId" />
+
+			<label for="update-title">Titulo</label>
+			<input id="update-title" type="text" formControlName="title" />
+
+			<label class="check">
+				<input id="update-completed" type="checkbox" formControlName="completed" />
+				Concluido
+			</label>
+
+			<button type="submit" class="botao principal">Salvar alteracoes</button>
+		</form>
+	}
+
+	@if (modoMenu() === 'delete') {
+		<form [formGroup]="deleteForm" (ngSubmit)="excluirProduto()" class="formulario">
+			<label for="delete-id">ID do produto</label>
+			<input id="delete-id" type="number" formControlName="id" />
+
+			<button type="submit" class="botao danger">Excluir produto</button>
+		</form>
+	}
+</aside>
